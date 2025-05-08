@@ -1,7 +1,11 @@
 import { playerToken } from "@/app/lib/definitions";
+import player from "@/app/lib/player";
 
 let currentPlayerToken: playerToken = 1;
 let currentBoard: number[][];
+
+const player1 = player(1, "Player One");
+const player2 = player(2, "Player Two");
 
 const initializeBoard = () => {
   currentBoard = [
