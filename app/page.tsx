@@ -1,12 +1,15 @@
-import Symbol from "@/app/ui/Symbol";
-import { cellValue } from "@/app/types/cellValue";
+"use client";
+
+import Board from "@/app/ui/Board";
+import { useState } from "react";
+import { getCurrentBoard } from "./lib/tic-tac-toe";
 
 export default function Page() {
+  const [board, setBoard] = useState(getCurrentBoard);
+
   return (
     <div>
-      <Symbol value={cellValue.NONE} />
-      <Symbol value={cellValue.X} />
-      <Symbol value={cellValue.O} />
+      <Board board={board} />
     </div>
   );
 }
