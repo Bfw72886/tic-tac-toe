@@ -1,17 +1,17 @@
-import { playerToken } from "@/app/lib/definitions";
 import player from "@/app/lib/player";
+import { cellValue } from "@/app/types/cellValue";
 
-let currentPlayerToken: playerToken = 1;
-let currentBoard: number[][];
+let currentPlayerToken: cellValue = cellValue.X;
+let currentBoard: cellValue[][];
 
-const player1 = player(1, "Player One");
-const player2 = player(2, "Player Two");
+const player1 = player(cellValue.X, "Player One");
+const player2 = player(cellValue.O, "Player Two");
 
 const initializeBoard = () => {
   currentBoard = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
+    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
+    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
+    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
   ];
 };
 initializeBoard();
@@ -24,26 +24,27 @@ const setMark = (row: number, col: number) => {
   currentBoard[row][col] = getPlayerToken();
 };
 
-const getPlayerToken = (): playerToken => {
+const getPlayerToken = (): cellValue => {
   return currentPlayerToken;
 };
 
 const switchPlayer = (): void => {
-  currentPlayerToken = currentPlayerToken === 1 ? 0 : 1;
+  currentPlayerToken =
+    currentPlayerToken === cellValue.X ? cellValue.O : cellValue.X;
 };
 
 const playRound = (row: number, col: number): void => {
-  if (!(getCurrentBoard()[row][col] === 0)) {
+  if (!(getCurrentBoard()[row][col] === cellValue.NONE)) {
     return;
   }
   setMark(row, col);
   switchPlayer();
 };
 
-const getWinnerToken = (): playerToken => {
-  let winnerToken: playerToken = 0;
+const getWinnerName = (): string => {
+  let winner: string = "";
 
-  function hasPlayerWon(token: playerToken) {
+  function hasPlayerWon(token: cellValue) {
     const board = getCurrentBoard();
     for (let i = 0; i < 3; i++) {
       // check rows
@@ -77,18 +78,18 @@ const getWinnerToken = (): playerToken => {
     return false;
   }
 
-  if (hasPlayerWon(1)) {
-    winnerToken = 1;
-  } else if (hasPlayerWon(2)) {
-    winnerToken = 2;
+  if (hasPlayerWon(player1.playerToken)) {
+    winner = player1.playerName;
+  } else if (hasPlayerWon(player2.playerToken)) {
+    winner = player2.playerName;
   }
 
-  return winnerToken;
+  return winner;
 };
 
 const resetGame = () => {
-  currentPlayerToken = 1;
+  currentPlayerToken = cellValue.X;
   initializeBoard();
 };
 
-export { getCurrentBoard, playRound, getWinnerToken, resetGame };
+export { getCurrentBoard, playRound, getWinnerName, resetGame };
