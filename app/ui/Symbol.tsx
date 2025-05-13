@@ -2,6 +2,8 @@ import { cellValue } from "@/app/types/cellValue";
 
 type PageProps = {
   value: cellValue;
+  row: number;
+  col: number;
 };
 
 export default function Page({ value }: PageProps) {
