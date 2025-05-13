@@ -1,6 +1,6 @@
-import { playerToken } from "./definitions";
+import { cellValue } from "@/app/types/cellValue";
 
-const player = (token: playerToken, name: string) => {
+const player = (token: cellValue, name: string) => {
   let playerName = name;
   const playerToken = token;
 
