@@ -7,10 +7,16 @@ let currentBoard: cellValue[][];
 const player1 = player(cellValue.X, "Player One");
 const player2 = player(cellValue.O, "Player Two");
 
+const getCurrentPlayerName = () => {
+  return player1.playerToken === currentPlayerToken
+    ? player1.playerName
+    : player2.playerName;
+};
+
 const initializeBoard = () => {
   currentBoard = [
-    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
-    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
+    [cellValue.X, cellValue.X, cellValue.O],
+    [cellValue.NONE, cellValue.O, cellValue.NONE],
     [cellValue.NONE, cellValue.NONE, cellValue.NONE],
   ];
 };
@@ -92,4 +98,10 @@ const resetGame = () => {
   initializeBoard();
 };
 
-export { getCurrentBoard, playRound, getWinnerName, resetGame };
+export {
+  getCurrentPlayerName,
+  getCurrentBoard,
+  playRound,
+  getWinnerName,
+  resetGame,
+};
