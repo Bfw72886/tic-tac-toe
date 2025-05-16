@@ -25,7 +25,12 @@ export default function Board() {
     setWinnerName(getWinnerName);
   };
 
-  const onPlayerNameButtonClick = (token: cellValue.X | cellValue.O) => {};
+  const onInputName = (token: cellValue.X | cellValue.O, name: string) => {
+    setPlayerName(token, name);
+    token === cellValue.X
+      ? setNameX(getPlayerName(cellValue.X))
+      : setNameO(getPlayerName(cellValue.O));
+  };
 
   const isBoardActive = hasWinner
     ? "pointer-events-none"
@@ -57,9 +62,24 @@ export default function Board() {
       >
         {symbolList}
       </div>
-      <button type="button" onClick={}>
-        Change Name of X
-      </button>
+      <label htmlFor="playerXName" className="mt-4">
+        Playername of X:
+      </label>
+      <input
+        id="playerXName"
+        type="text"
+        onChange={(e) => onInputName(cellValue.X, e.target.value)}
+        value={nameX}
+      />
+      <label htmlFor="playerOName" className="mt-4">
+        Playername of O:
+      </label>
+      <input
+        id="playerOName"
+        type="text"
+        onChange={(e) => onInputName(cellValue.O, e.target.value)}
+        value={nameO}
+      />
     </div>
   );
 }
