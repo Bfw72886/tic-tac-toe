@@ -5,11 +5,16 @@ import {
   getCurrentPlayerName,
   playRound,
   getWinnerName,
+  setPlayerName,
+  getPlayerName,
 } from "@/app/lib/tic-tac-toe";
+import { cellValue } from "@/app/types/cellValue";
 
 export default function Board() {
   const [board, setBoard] = useState(getCurrentBoard);
   const [winnerName, setWinnerName] = useState(getWinnerName);
+  const [nameX, setNameX] = useState(() => getPlayerName(cellValue.X));
+  const [nameO, setNameO] = useState(() => getPlayerName(cellValue.O));
 
   const hasWinner = winnerName !== "";
 
@@ -19,6 +24,8 @@ export default function Board() {
 
     setWinnerName(getWinnerName);
   };
+
+  const onPlayerNameButtonClick = (token: cellValue.X | cellValue.O) => {};
 
   const isBoardActive = hasWinner
     ? "pointer-events-none"
@@ -50,6 +57,9 @@ export default function Board() {
       >
         {symbolList}
       </div>
+      <button type="button" onClick={}>
+        Change Name of X
+      </button>
     </div>
   );
 }

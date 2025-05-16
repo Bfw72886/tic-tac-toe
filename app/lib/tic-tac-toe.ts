@@ -13,6 +13,21 @@ const getCurrentPlayerName = () => {
     : player2.playerName;
 };
 
+const setPlayerName = (
+  playerToken: cellValue.X | cellValue.O,
+  newName: string
+) => {
+  playerToken === player1.playerToken
+    ? (player1.playerName = newName)
+    : (player2.playerName = newName);
+};
+
+const getPlayerName = (playerToken: cellValue.X | cellValue.O) => {
+  return playerToken === player1.playerToken
+    ? player1.playerName
+    : player2.playerName;
+};
+
 const initializeBoard = () => {
   currentBoard = [
     [cellValue.X, cellValue.X, cellValue.O],
@@ -99,6 +114,8 @@ const resetGame = () => {
 };
 
 export {
+  setPlayerName,
+  getPlayerName,
   getCurrentPlayerName,
   getCurrentBoard,
   playRound,
