@@ -16,6 +16,7 @@ export default function Board() {
   const [winnerName, setWinnerName] = useState(getWinnerName);
   const [nameX, setNameX] = useState(() => getPlayerName(cellValue.X));
   const [nameO, setNameO] = useState(() => getPlayerName(cellValue.O));
+  const [settingsShown, setSettingsShown] = useState(false);
 
   const hasWinner = winnerName !== "";
 
@@ -58,16 +59,19 @@ export default function Board() {
 
   return (
     <div className="flex flex-col">
+      {/* header (winstatus & turn) */}
       {hasWinner ? (
         <p className="text-2xl">&#127881; {winnerName} has won!!! &#127881;</p>
       ) : (
         <p>It's {getCurrentPlayerName()}'s turn!</p>
       )}
+      {/* board */}
       <div
         className={`h-80 w-80 grid gap-4 grid-rows-3 grid-cols-3 mt-4 bg-gray-500/10 ${isBoardActive}`}
       >
         {symbolList}
       </div>
+      {/* settings (playername & reset) */}
       <label htmlFor="playerXName" className="mt-4">
         Playername of X:
       </label>
