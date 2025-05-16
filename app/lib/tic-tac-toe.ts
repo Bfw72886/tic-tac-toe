@@ -30,8 +30,8 @@ const getPlayerName = (playerToken: cellValue.X | cellValue.O) => {
 
 const initializeBoard = () => {
   currentBoard = [
-    [cellValue.X, cellValue.X, cellValue.O],
-    [cellValue.NONE, cellValue.O, cellValue.NONE],
+    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
+    [cellValue.NONE, cellValue.NONE, cellValue.NONE],
     [cellValue.NONE, cellValue.NONE, cellValue.NONE],
   ];
 };
