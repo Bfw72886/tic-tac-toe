@@ -41,14 +41,12 @@ export default function Board() {
   return (
     <div className="flex flex-col">
       {hasWinner ? (
-        <p>
-          <strong>{winnerName} has won!!!</strong>
-        </p>
+        <p className="text-2xl">&#127881; {winnerName} has won!!! &#127881;</p>
       ) : (
         <p>It's {getCurrentPlayerName()}'s turn!</p>
       )}
       <div
-        className={`h-80 w-80 grid gap-4 grid-rows-3 grid-cols-3 bg-gray-500/10 ${isBoardActive}`}
+        className={`h-80 w-80 grid gap-4 grid-rows-3 grid-cols-3 mt-4 bg-gray-500/10 ${isBoardActive}`}
       >
         {symbolList}
       </div>
