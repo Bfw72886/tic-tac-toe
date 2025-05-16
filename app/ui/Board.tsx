@@ -7,6 +7,7 @@ import {
   getWinnerName,
   setPlayerName,
   getPlayerName,
+  resetGame,
 } from "@/app/lib/tic-tac-toe";
 import { cellValue } from "@/app/types/cellValue";
 
@@ -50,6 +51,11 @@ export default function Board() {
     })
   );
 
+  const onResetButtonClick = () => {
+    resetGame();
+    setBoard(...[getCurrentBoard]);
+  };
+
   return (
     <div className="flex flex-col">
       {hasWinner ? (
@@ -70,6 +76,7 @@ export default function Board() {
         type="text"
         onChange={(e) => onInputName(cellValue.X, e.target.value)}
         value={nameX}
+        className="border border-gray-500"
       />
       <label htmlFor="playerOName" className="mt-4">
         Playername of O:
@@ -79,7 +86,15 @@ export default function Board() {
         type="text"
         onChange={(e) => onInputName(cellValue.O, e.target.value)}
         value={nameO}
+        className="border border-gray-500"
       />
+      <button
+        type="button"
+        onClick={onResetButtonClick}
+        className="mt-4 border border-gray-500"
+      >
+        Reset board
+      </button>
     </div>
   );
 }
