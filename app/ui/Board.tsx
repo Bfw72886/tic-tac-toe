@@ -57,6 +57,10 @@ export default function Board() {
     setBoard(...[getCurrentBoard]);
   };
 
+  const toggleSettings = () => {
+    setSettingsShown((settingsShown) => !settingsShown);
+  };
+
   return (
     <div className="flex flex-col">
       {/* header (winstatus & turn) */}
@@ -72,33 +76,44 @@ export default function Board() {
         {symbolList}
       </div>
       {/* settings (playername & reset) */}
-      <label htmlFor="playerXName" className="mt-4">
-        Playername of X:
-      </label>
-      <input
-        id="playerXName"
-        type="text"
-        onChange={(e) => onInputName(cellValue.X, e.target.value)}
-        value={nameX}
-        className="border border-gray-500"
-      />
-      <label htmlFor="playerOName" className="mt-4">
-        Playername of O:
-      </label>
-      <input
-        id="playerOName"
-        type="text"
-        onChange={(e) => onInputName(cellValue.O, e.target.value)}
-        value={nameO}
-        className="border border-gray-500"
-      />
       <button
         type="button"
-        onClick={onResetButtonClick}
-        className="mt-4 border border-gray-500"
+        onClick={toggleSettings}
+        className="border border-gray-500 mt-4"
       >
-        Reset board
+        {settingsShown ? "Close Settings" : "Show Settings"}
       </button>
+      {settingsShown && (
+        <>
+          <label htmlFor="playerXName" className="mt-4">
+            Playername of X:
+          </label>
+          <input
+            id="playerXName"
+            type="text"
+            onChange={(e) => onInputName(cellValue.X, e.target.value)}
+            value={nameX}
+            className="border border-gray-500"
+          />
+          <label htmlFor="playerOName" className="mt-4">
+            Playername of O:
+          </label>
+          <input
+            id="playerOName"
+            type="text"
+            onChange={(e) => onInputName(cellValue.O, e.target.value)}
+            value={nameO}
+            className="border border-gray-500"
+          />
+          <button
+            type="button"
+            onClick={onResetButtonClick}
+            className="mt-4 border border-gray-500"
+          >
+            Reset board
+          </button>
+        </>
+      )}
     </div>
   );
 }
