@@ -62,6 +62,17 @@ const playRound = (row: number, col: number): void => {
   switchPlayer();
 };
 
+const isDraw = () => {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (currentBoard[i][j] === cellValue.NONE) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 const getWinnerName = (): string => {
   let winner: string = "";
 
@@ -120,5 +131,6 @@ export {
   getCurrentBoard,
   playRound,
   getWinnerName,
+  isDraw,
   resetGame,
 };

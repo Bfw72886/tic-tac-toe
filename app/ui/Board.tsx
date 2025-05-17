@@ -1,5 +1,5 @@
 import Symbol from "@/app/ui/Symbol";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getCurrentBoard,
   getCurrentPlayerName,
@@ -8,6 +8,7 @@ import {
   setPlayerName,
   getPlayerName,
   resetGame,
+  isDraw,
 } from "@/app/lib/tic-tac-toe";
 import { cellValue } from "@/app/types/cellValue";
 
@@ -17,14 +18,25 @@ export default function Board() {
   const [nameX, setNameX] = useState(() => getPlayerName(cellValue.X));
   const [nameO, setNameO] = useState(() => getPlayerName(cellValue.O));
   const [settingsShown, setSettingsShown] = useState(false);
+  const [gameStatus, setGameStatus] = useState<"ongoing" | "win" | "draw">(
+    "ongoing"
+  );
 
-  const hasWinner = winnerName !== "";
+  useEffect(() => {
+    const currentWinner = getWinnerName();
+    setWinnerName(currentWinner);
+    if (currentWinner !== "") {
+      setGameStatus("win");
+    } else if (isDraw()) {
+      setGameStatus("draw");
+    } else {
+      setGameStatus("ongoing");
+    }
+  }, [board]);
 
   const onSymbolClick = (row: number, col: number) => {
     playRound(row, col);
     setBoard([...getCurrentBoard()]);
-
-    setWinnerName(getWinnerName);
   };
 
   const onInputName = (token: cellValue.X | cellValue.O, name: string) => {
@@ -34,9 +46,8 @@ export default function Board() {
       : setNameO(getPlayerName(cellValue.O));
   };
 
-  const isBoardActive = hasWinner
-    ? "pointer-events-none"
-    : "pointer-events-auto";
+  const isBoardActive =
+    gameStatus === "ongoing" ? "pointer-events-auto" : "pointer-events-none";
 
   const symbolList = board.map((row, rowIndex) =>
     row.map((element, colIndex) => {
@@ -54,7 +65,7 @@ export default function Board() {
 
   const onResetButtonClick = () => {
     resetGame();
-    setBoard(...[getCurrentBoard]);
+    setBoard(getCurrentBoard());
   };
 
   const toggleSettings = () => {
@@ -64,8 +75,10 @@ export default function Board() {
   return (
     <div className="flex flex-col">
       {/* header (winstatus & turn) */}
-      {hasWinner ? (
+      {gameStatus === "win" ? (
         <p className="text-2xl">&#127881; {winnerName} has won!!! &#127881;</p>
+      ) : gameStatus === "draw" ? (
+        <p className="text-2xl">&#129309; It's a draw! &#129309;</p>
       ) : (
         <p>It's {getCurrentPlayerName()}'s turn!</p>
       )}
