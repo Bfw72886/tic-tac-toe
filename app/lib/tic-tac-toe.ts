@@ -17,9 +17,11 @@ const setPlayerName = (
   playerToken: cellValue.X | cellValue.O,
   newName: string
 ) => {
-  playerToken === player1.playerToken
-    ? (player1.playerName = newName)
-    : (player2.playerName = newName);
+  if (playerToken === player1.playerToken) {
+    player1.playerName = newName;
+  } else {
+    player2.playerName = newName;
+  }
 };
 
 const getPlayerName = (playerToken: cellValue.X | cellValue.O) => {

@@ -41,9 +41,11 @@ export default function Board() {
 
   const onInputName = (token: cellValue.X | cellValue.O, name: string) => {
     setPlayerName(token, name);
-    token === cellValue.X
-      ? setNameX(getPlayerName(cellValue.X))
-      : setNameO(getPlayerName(cellValue.O));
+    if (token === cellValue.X) {
+      setNameX(getPlayerName(cellValue.X));
+    } else {
+      setNameO(getPlayerName(cellValue.O));
+    }
   };
 
   const isBoardActive =
@@ -78,9 +80,9 @@ export default function Board() {
       {gameStatus === "win" ? (
         <p className="text-2xl">&#127881; {winnerName} has won!!! &#127881;</p>
       ) : gameStatus === "draw" ? (
-        <p className="text-2xl">&#129309; It's a draw! &#129309;</p>
+        <p className="text-2xl">&#129309; It&apos;s a draw! &#129309;</p>
       ) : (
-        <p>It's {getCurrentPlayerName()}'s turn!</p>
+        <p>It&apos;s {getCurrentPlayerName()}&apos;s turn!</p>
       )}
       {/* board */}
       <div
