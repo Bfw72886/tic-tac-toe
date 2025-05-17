@@ -8,7 +8,7 @@ type PageProps = {
 };
 
 export default function Symbol({ value, onClick }: PageProps) {
-  const iconColor = "#AA00FF";
+  const iconColor = "#ad46ff";
 
   function Icon() {
     if (value === cellValue.X) {
@@ -55,7 +55,10 @@ export default function Symbol({ value, onClick }: PageProps) {
   }
 
   return (
-    <div className="bg-gray-500/30 p-2" onClick={onClick}>
+    <div
+      className="bg-gray-500/30 p-2 border border-purple-500"
+      onClick={onClick}
+    >
       <Icon />
     </div>
   );
