@@ -1,5 +1,5 @@
 import Symbol from "@/app/ui/Symbol";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   getCurrentBoard,
   getCurrentPlayerName,
@@ -22,7 +22,9 @@ export default function Board() {
     "ongoing"
   );
 
-  useEffect(() => {
+  const onSymbolClick = (row: number, col: number) => {
+    playRound(row, col);
+    setBoard([...getCurrentBoard()]);
     const currentWinner = getWinnerName();
     setWinnerName(currentWinner);
     if (currentWinner !== "") {
@@ -32,11 +34,6 @@ export default function Board() {
     } else {
       setGameStatus("ongoing");
     }
-  }, [board]);
-
-  const onSymbolClick = (row: number, col: number) => {
-    playRound(row, col);
-    setBoard([...getCurrentBoard()]);
   };
 
   const onInputName = (token: cellValue.X | cellValue.O, name: string) => {
@@ -67,7 +64,10 @@ export default function Board() {
 
   const onResetButtonClick = () => {
     resetGame();
-    setBoard(getCurrentBoard());
+    const newBoard = getCurrentBoard().map((row) => [...row]);
+    setBoard(newBoard);
+    setGameStatus("ongoing");
+    setWinnerName("");
   };
 
   const toggleSettings = () => {
